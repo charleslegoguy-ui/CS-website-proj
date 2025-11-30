@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Charles's Unit 2 Revision Site</title>
+  <style>
+    nav { background-color: #333; padding: 10px; }
+    nav a { color: white; text-decoration: none; margin-right: 15px; }
+    nav a:hover { text-decoration: underline; }
+  
+    
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    
+    <a href="LAN Hardware and Routers.html">LAN Hardware and Routers</a>
+    <a href="Cloud Computing.html">Cloud Computing</a>
+    <a href="Wired vs Wireless.html">Wired vs Wireless</a>
+    <a href="Network Topologies.html">Network Topologies</a>
+    <a href="Network Infra.html">Network Infra</a>    
+    
+    
+   
+    <a href="See More.html">See More Here</a>
+  </nav>
+
+  <h1 >Network Topologies</h1>
+  <p> There are a number of ways you can arrange devices on a network. This includes Bus, Star, Mesh, Hybrid </p>
+  <p> BUS topology - one central cable (backbone) connects all devices. Only one device can transmit at a time (otherwise they clash down the backbone). Devices don't know the location of the other, so it sends data in both directions. Good for small networks, easy to add nodes, but poor security as every node sees packets, and if backbone main cable fails, the entire netowkr goes down.  </p>
+  <p> STAR topology - All devices connect to a central network hub/switch. A hub broadcasts the packet and sends it to all devices, a switch directs it at the intended recipinent. Pros - fewer collisions, easy to upgrade, but more cables, and if the central hub or switch fails, the entire detwork goes down. Bottlenecks if all data msut pass thru the centre  </p>
+  <p> MESH topology - No central connection point - each node connects to many other nodes. If one node fails, it can take an alternative route. Packets try to find the most efficient route. Full mesh connects every node to every other node, but then cable cost increases exponentially. Very reliable, many possible routes, and can handle multiple transmissions at once. But very expensive, many cables required. </p>
+  <p> HYBRID topology - basically a combination of two of the above. e.g. a star + bus. Useful for a large area like an office campus or a school. Can handle lots of traffic.  </p>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rain</title>
+<style>
+  nav { background-color: #333; padding: 10px; }
+  nav a { color: white; text-decoration: none; margin-right: 15px; }
+  nav a:hover { text-decoration: underline; }
+  body {
+    margin: 10;
+    height: 100vh;
+    overflow: hidden;
+    background: #ffffff;
+  }
+  #stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .emoji {
+    position: absolute;
+    font-size: 36px;
+    will-change: transform;
+    user-select: none;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="LAN Hardware and Routers.html">LAN Hardware and Routers</a>
+    <a href="Cloud Computing.html">Cloud Computing</a>
+    <a href="Wired vs Wireless.html">Wired vs Wireless</a>
+    <a href="Network Topologies.html">Network Topologies</a>
+    <a href="Network Infra.html">Network Infra</a>
+    <a href="See More.html">See More Here</a>
+  </nav>
+
+
+
+
+  <h1>LAN Hardware and Routers</h1>
+  <p>A server provides access to resources to devices connected to it, via a network. This can be a LAN (within say, an office), or a WAN (connected to the internet).</p>
+
+  <p> Devices on the network can make requests. Servers filfil them. There are Different types of servers for individual purposes, like hosting a website or managing print requests from users. </p>
+  <h2> Network hardware devices </h2>
+ 
+  <p>Any device that connects to a network must have an NIC card, which is a Network Interface Card.</p>
+  <p>They all contain a unique MAC address which identifies the device, used to tell devices apart within a network. </p>
+  <p>For wired network cards, they have an ethernet prot.</p>
+  <p> for Wireless network cards, they have an antenna to transmit / recieve signal via microwave signals.</p>
+ 
+  <p> Devices don't connect directly to each other - they always go thru a router / wireless access point. </p>
+
+  <h2> Mac addresses and Devices</h2>
+  <p>Mac addresses stand for MEdia Access control. </p>
+  <p> they are unique to the specific netwrok card unit, associated with a device. It includes information about the manufacturer of the card and the serial number of the device. </p>
+  <p> They're set by the manfuacturer and cannot be changed, although the user can technically "spoof" their mac address to appear to the network to be a different address, for privacy, to change the address randomly regularly.</p>
+
+  <p> a wireless Hub is essentially a splitter for Ethernet ports. They send data that comes from the router out to every single device connected. This reduces performance. </p>
+  <p> a Switch is similar to a hub, but it can identify the devices connected to it, to forward a packet from the router only to the intended device. Reduces unnecessary transmissions. Full duplex, data can move in both directions via the ethernet cables at the same time. </p>
+
+  <p> a Bridge is used to connect two LANs together when they're using the same protocol. a bridge checks the MAC address, and if the device isn't connected to one hub, it forwards it to another hub.  PRevents the hub from overcrowding the network by sending packets to EVERY device in the entire network. </p>
+  <p> a Gateway connects LANs togehter when they're using different protocols. They do conversions of data packets between them.  </p>
+  <p> a Router connects any kind of network using the same protocol - WAN (the internet), LAN (within a building/office).</p>
+  <p> Routers know which devices are connected to which port, to send the packet back to the correct device using the destination IP address.....if the device is not in its own network, it forwards it to another router using the most efficient route. </p>
+  <p> Modems are effectively an adaptor for the analog signal transmitted via telephone line infrastructure, and convert it to/from digital form. Can be software. </p>
+  <p> a repeater is just a device that takes in a weak signal and repeats it and transmits it again. This lets you expand the range of the signal, as signal gets weaker over distance. This allows the same singal from the router to travel further. </p>
+
+  <div id="stage"></div>
+
+  
+
+<script>
+(() => {
+  const stage = document.getElementById("stage");
+  const gravity = 0.0018; // px/ms²
+  const bounceFactor = 0.6;
+  const particles = [];
+  let rafId = null;
+
+  function random(min, max) { return Math.random() * (max - min) + min; }
+
+  function spawnPoo() {
+    const el = document.createElement("div");
+    el.className = "emoji";
+    el.textContent = "🐔";
+
+    const size = random(28, 44);
+    el.style.fontSize = size + "px";
+
+    const x = random(0, stage.clientWidth - size);
+    const y = -50;
+
+    const p = {
+      el,
+      x, y,
+      vx: random(-0.15, 0.15),
+      vy: random(0, 0.3),
+      size,
+      resting: false
+    };
+    stage.appendChild(el);
+    particles.push(p);
+  }
+
+  function update(dt) {
+    const floor = stage.clientHeight;
+    for (let p of particles) {
+      if (p.resting) continue;
+
+      p.vy += gravity * dt;
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+
+      // floor bounce
+      if (p.y + p.size > floor) {
+        p.y = floor - p.size;
+        p.vy = -p.vy * bounceFactor;
+        if (Math.abs(p.vy) < 0.05) {
+          p.vy = 0;
+          p.vx = 0;
+          p.resting = true;
+        }
+      }
+
+      // wall bounce
+      if (p.x < 0) { p.x = 0; p.vx *= -bounceFactor; }
+      if (p.x + p.size > stage.clientWidth) {
+        p.x = stage.clientWidth - p.size;
+        p.vx *= -bounceFactor;
+      }
+    }
+
+    // render
+    for (let p of particles) {
+      p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
+    }
+  }
+
+  let lastTime = 0;
+  function frame(now) {
+    if (!lastTime) lastTime = now;
+    const dt = now - lastTime;
+    lastTime = now;
+    update(dt);
+    rafId = requestAnimationFrame(frame);
+  }
+
+  // spawn 10 poos every 10 seconds
+  setInterval(() => {
+    for (let i = 0; i < 10; i++) spawnPoo();
+  }, 10000);
+
+  rafId = requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

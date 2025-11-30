@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Charles's Unit 2 Revision Site</title>
+  <style>
+    nav { background-color: #333; padding: 10px; }
+    nav a { color: white; text-decoration: none; margin-right: 15px; }
+    nav a:hover { text-decoration: underline; }
+    
+
+
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>    
+    <a href="LAN Hardware and Routers.html">LAN Hardware and Routers</a>
+    <a href="Cloud Computing.html">Cloud Computing</a>
+    <a href="Wired vs Wireless.html">Wired vs Wireless</a>
+    
+    <a href="Network Topologies.html">Network Topologies</a>
+    <a href="Network Infra.html">Network Infra</a>
+    
+    <a href="See More.html">See More Here</a>
+  </nav>
+
+
+  <h1 >To unlock page, convert 0010 0111 to Denary</h1>
+
+  <input type="text" id="answer" placeholder="Enter your answer">
+  
+  <!-- Button -->
+  <button onclick="checkAnswer()">Submit</button>
+  
+  <!-- Feedback area -->
+  <p id="result"></p>
+
+    <script>
+    function checkAnswer() {
+      const userAnswer = document.getElementById("answer").value.trim();
+      const result = document.getElementById("result");
+      
+      if (userAnswer === "39") {
+        result.textContent = "✅ Correct!";
+        result.style.color = "green";
+
+        window.location.href = "Network Topologies Unlocked.html"; 
+
+      } else {
+        result.textContent = "❌ Wrong, try again!";
+        result.style.color = "red";
+      }
+    }
+  </script>
+
+  
+</body>
+</html>

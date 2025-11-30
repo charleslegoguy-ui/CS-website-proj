@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake Loading Bar</title>
+  <style>
+
+    nav { background-color: #333; padding: 10px; }
+    nav a { color: white; text-decoration: none; margin-right: 15px; }
+    nav a:hover { text-decoration: underline; }
+
+
+
+    .bar-container {
+      width: 400px;
+      height: 30px;
+      border: 2px solid #333;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 50px auto;
+    }
+    .bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #4caf50, #81c784);
+      transition: width 0.1s;
+    }
+    .percent {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+  <nav>
+  <a href="index.html">Home</a>
+  <a href="Network Infra.html">Network Infra</a>
+  <a href="Network Topologies.html">Network Topologies</a>
+  <a href="Cloud Computing.html">Cloud Computing</a>
+  <a href="Wired vs Wireless.html">Wired vs Wireless</a>
+  <a href="LAN Hardware and Routers.html">LAN Hardware and Routers</a>
+  <a href="See More.html">See More Here</a>
+  </nav>
+
+  <h1>Page Loading...</h1>
+  <h2>Please wait...</h2>
+
+  <div class="bar-container">
+    <div class="bar" id="bar"></div>
+  </div>
+  <div class="percent" id="percent">0%</div>
+
+  <script>
+    let percent = 0;
+    const bar = document.getElementById("bar");
+    const percentText = document.getElementById("percent");
+
+    // how fast to update (ms)
+    const intervalTime = 130; // 70ms * ~100 steps ≈ 7s
+    const interval = setInterval(() => {
+      if (percent < 100) {
+        percent++;
+        bar.style.width = percent + "%";
+        percentText.textContent = percent + "%";
+      } else {
+        clearInterval(interval);
+        percentText.textContent = "Nothing to see here!";
+      }
+    }, intervalTime);
+  </script>
+
+</body>
+</html>
